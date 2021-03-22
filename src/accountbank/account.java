@@ -45,19 +45,24 @@ public class account {
                     + " 2) Whithdrawn money"
                     + " 3) Close account"
                     + " 4) Add new money"
-                    + " 5) Payment bank");
+                    + " 5) Payment bank"
+                + " 0) Exit");
             
-        String function = in.nextLine();
+        int function = in.nextInt();
         
          
         switch(function){
-            case "1" -> {
+            case 0 -> {
+                System.out.println("Account system closed!");
+            }
+            
+            case 1 -> {
                 double numberAccount =  Math.random();
                 String status = "open";
 
                 System.out.println("Chose type account: "
-                        + "1) Current"
-                        + "2) Account");
+                        + " 1) CC"
+                        + " 2) CP");
                 String typeAccount = in.nextLine();
 
                 //
@@ -78,6 +83,85 @@ public class account {
                 );
 
                 newAccount.showAccount();
+                newAccount.accountFunctions();
+            }
+            
+            case 2 -> {
+                System.out.println("Value to withdraw: ");
+                int withdrawn = in.nextInt();
+                
+                float newValue = getValue() - withdrawn;
+                
+                this.setValue(newValue);
+                
+                this.showAccount();
+                this.accountFunctions();
+            }
+            
+            case 3 -> {
+                System.out.println("Close account?"
+                        + " 1) Yes"
+                        + " 2) No");
+                int closeAccount = in.nextInt();
+                
+                if(closeAccount == 1)
+                {
+                    System.out.println("Account closed!");
+                    setStatus("Closed");
+                    this.showAccount();
+                    this.accountFunctions();
+                }else {
+                    this.accountFunctions();
+                }
+            }
+            
+            case 4 -> {
+                System.out.println("New value: ");
+                float newValue = in.nextFloat();
+                
+                float resetValue = getValue() + newValue;
+                setValue(resetValue);
+                
+                this.showAccount();
+                this.accountFunctions();
+            }
+            
+            case 5 -> {
+                System.out.println("Payment bank now? "
+                        + " 1) Yes"
+                        + " 2) No");
+                int option = in.nextInt();
+                
+                if(option == 1)
+                {
+                    if(getStatus() == "open")
+                    {
+                        System.out.println("This account is actived!");
+                        this.accountFunctions();
+                    }
+                    else { 
+                        float newValue = getValue() - 100;
+                        
+                        if(getValue() <= 0 && newValue <= 0){
+                            System.out.println("Error in payment bank!");
+                            
+                            this.accountFunctions();  
+                        }else {
+                            setValue(newValue);
+                            setStatus("open");
+
+                            System.out.println("Payment has bee success!");
+
+                            this.showAccount();
+                            this.accountFunctions();    
+                        }
+                    }
+
+                }else {
+                    this.showAccount();
+                    this.accountFunctions();
+                }
+               
             }
         }
     }

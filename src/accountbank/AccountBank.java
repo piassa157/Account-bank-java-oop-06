@@ -14,7 +14,8 @@ public class AccountBank {
         Scanner in = new Scanner(System.in);
         
         System.out.println("Star system bank?"
-                + " 1) Yes"
+                + " 1)"
+                + " Yes"
                 + " 2) No");
         int started = in.nextInt();
         
